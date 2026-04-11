@@ -44,7 +44,7 @@ Abrir `cybertrain_v6.html` en el navegador del mismo equipo. El indicador mostra
 
 El HTML apunta por defecto a `localhost`, que no es accesible desde otros equipos. Hay que hacer dos cosas:
 
-**1. Editar cybertrain_v6.html** — al inicio del `<script>`, cambiar:
+**1. Editar index.html** — al inicio del `<script>`, cambiar:
 
 ```javascript
 // Antes
@@ -64,7 +64,7 @@ OLLAMA_HOST=0.0.0.0 OLLAMA_ORIGINS="*" ollama serve
 > `OLLAMA_HOST=0.0.0.0` → escucha en todas las interfaces, no solo localhost  
 > `OLLAMA_ORIGINS="*"` → permite las peticiones fetch del navegador (CORS)
 
-Abrir `cybertrain_v6.html` desde el dispositivo remoto. ✅
+Abrir `index.html` desde el dispositivo remoto. ✅
 
 **Verificar que Ollama responde desde red:**
 ```bash
