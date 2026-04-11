@@ -13,7 +13,7 @@ CyberTrain es una aplicación web standalone de estudio para ciberseguridad. No 
 ## Uso rápido
 
 ```
-Abrir cybertrain_v6.html en el navegador
+Abrir index.html en el navegador
 ```
 
 Sin dependencias. Sin servidor. Sin instalación.
@@ -36,7 +36,7 @@ killall ollama 2>/dev/null; sleep 2
 OLLAMA_ORIGINS="*" ollama serve
 ```
 
-Abrir `cybertrain_v6.html` en el navegador del mismo equipo. El indicador mostrará **OLLAMA ONLINE** en verde.
+Abrir `index.html` en el navegador del mismo equipo. El indicador mostrará **OLLAMA ONLINE** en verde.
 
 ---
 
