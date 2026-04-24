@@ -1,137 +1,125 @@
-# 🛡️ CyberTrain v6
-> Herramienta de estudio para SOC analyst junior — CompTIA Security+ · Linux CLI · Networking  
-> Edward Varela · Abril 2026
+# 🛡️ CyberTrain v6 — SOC Training Lab
+
+> Herramienta de estudio interactiva para **CompTIA Security+**, **Linux CLI** y **Networking**, con IA local via Ollama y modo examen cronometrado.
+
+[![GitHub Pages](https://img.shields.io/badge/Live-GitHub%20Pages-00f5ff?style=flat-square&logo=github)](https://edwardvarelamariani-bit.github.io/cybersecurity-lab/)
+[![Ollama](https://img.shields.io/badge/AI-Ollama%20Local-00ff88?style=flat-square)](https://ollama.com)
+[![Security+](https://img.shields.io/badge/CompTIA-Security%2B-b44fff?style=flat-square)](https://www.comptia.org/certifications/security)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
 ---
 
-## ¿Qué es?
+## ✨ Características
 
-CyberTrain es una aplicación web standalone de estudio para ciberseguridad. No requiere instalación ni servidor — se abre directamente en el navegador. Usa Ollama como motor de IA local para generar preguntas infinitas, con fallback automático a banco de preguntas integrado si Ollama no está disponible.
+### 🛡️ Módulo Security+
+- **80+ preguntas locales** organizadas en 10 categorías: Fundamentals, Cryptography, Threats, Web Security, Network, IAM, Incident Response, Governance, Frameworks y Hardening
+- **Cola pre-generada con Ollama** — mientras respondes una pregunta, la siguiente ya se está generando en background. Latencia cero percibida
+- **Categorías rotatorias forzadas** — el cliente controla el tema en cada prompt, garantizando variedad real sin depender del modelo
+- **Modo PRACTICE** — preguntas ilimitadas con explicación técnica detallada tras cada respuesta
+- **Modo EXAM ⏱** — 20 preguntas / 45 minutos con cronómetro, barra de progreso y sin explicaciones intermedias (simula Pearson VUE)
+- **Pantalla de resultados** — puntuación final, veredicto PASS/FAIL (umbral 75%), desglose por categoría con barras de color y detección automática de áreas de mejora
+- **Shortcuts de teclado** — `A` `B` `C` `D` para responder, `Enter`/`Space` para siguiente
+
+### 🐧 Módulo Linux CLI
+- Simulador de terminal embebido con 100+ comandos
+- Misiones progresivas con hints y reveal
+- Contexto del entorno de laboratorio real
+
+### 🌐 Módulo Networking
+- Calculadora de subnetting interactiva con explicación paso a paso
+- Quiz de puertos y protocolos
+- Topologías de red con preguntas visuales
 
 ---
 
-## Uso rápido
+## 🚀 Uso
 
+### Opción 1 — GitHub Pages (sin instalación)
+Accede directamente en el navegador:
 ```
-Abrir index.html en el navegador
+https://edwardvarelamariani-bit.github.io/cybersecurity-lab/
 ```
+Funciona sin Ollama — usa el banco de preguntas local automáticamente.
 
-Sin dependencias. Sin servidor. Sin instalación.
+### Opción 2 — Con Ollama (IA local, preguntas infinitas)
 
----
+**Requisitos:**
+- [Ollama](https://ollama.com) instalado
+- Modelo descargado: `gemma3:1b` (rápido) o `qwen2.5-coder:7b` (más preciso)
 
-## Motor de IA — Ollama
-
-CyberTrain usa **Ollama** corriendo localmente para generar preguntas dinámicas. Si Ollama no está disponible, la app cambia automáticamente al banco de preguntas local integrado (todos los módulos siguen funcionando).
-
-**Modelo:** `qwen2.5-coder:7b`  
-**Puerto:** `11434`
-
-### CASO 1 — Abrir el HTML en el mismo equipo donde corre Ollama
-
-Arrancar Ollama con CORS habilitado:
-
+**Arrancar Ollama con CORS habilitado:**
 ```bash
-killall ollama 2>/dev/null; sleep 2
 OLLAMA_ORIGINS="*" ollama serve
 ```
 
-Abrir `index.html` en el navegador del mismo equipo. El indicador mostrará **OLLAMA ONLINE** en verde.
-
----
-
-### CASO 2 — Abrir el HTML desde otro dispositivo (móvil, otro PC, VM)
-
-El HTML apunta por defecto a `localhost`, que no es accesible desde otros equipos. Hay que hacer dos cosas:
-
-**1. Editar index.html** — al inicio del `<script>`, cambiar:
-
-```javascript
-// Antes
-const OLLAMA_URL = 'http://localhost:11434';
-
-// Después — poner la IP del equipo donde corre Ollama
-const OLLAMA_URL = 'http://192.168.1.XXX:11434';
-```
-
-**2. Arrancar Ollama escuchando en red:**
-
+**Descargar modelo si no lo tienes:**
 ```bash
-killall ollama 2>/dev/null; sleep 2
-OLLAMA_HOST=0.0.0.0 OLLAMA_ORIGINS="*" ollama serve
+ollama pull gemma3:1b
 ```
 
-> `OLLAMA_HOST=0.0.0.0` → escucha en todas las interfaces, no solo localhost  
-> `OLLAMA_ORIGINS="*"` → permite las peticiones fetch del navegador (CORS)
+Abre `index.html` en el navegador — el indicador cambiará a 🟢 **OLLAMA ONLINE** y aparecerá el selector de modelos disponibles.
 
-Abrir `index.html` desde el dispositivo remoto. ✅
+---
 
-**Verificar que Ollama responde desde red:**
-```bash
-curl http://192.168.1.XXX:11434/api/tags
+## 🏗️ Arquitectura
+
+```
+index.html (single-file app)
+│
+├── CSS embebido          — diseño cyberpunk dark, Orbitron + Share Tech Mono
+├── HTML                  — 3 paneles: Security+, Linux CLI, Networking
+└── JavaScript embebido
+    ├── Banco local        — 80 preguntas JSON hardcoded (sin dependencias)
+    ├── Cola async         — pre-genera 5 preguntas en background via Ollama
+    ├── callOllama()       — wrapper con deduplicación, seed aleatorio, reintentos
+    ├── Modo Exam          — timer, tracking por categoría, pantalla de resultados
+    └── Keyboard handler   — atajos A/B/C/D + Enter/Space
 ```
 
----
-
-### CASO 3 — GitHub Pages / internet
-
-Cuando el HTML está alojado en GitHub Pages, Ollama **no es accesible** desde internet (es un servicio local). La app usará el fallback automático con el banco de preguntas integrado. Los módulos sin IA (Subnetting, Ports, Topology) funcionan al 100%.
+**Sin backend. Sin base de datos. Sin dependencias npm.** Un solo fichero HTML que funciona abriéndolo directamente o sirviendo desde cualquier servidor estático.
 
 ---
 
-### Fallback automático
+## 📊 Categorías Security+
 
-Si Ollama no responde, el indicador muestra **OLLAMA OFFLINE — usando banco local** en rojo y la app continúa usando preguntas predefinidas. El badge en cada pregunta indica si viene de `🤖 OLLAMA` o `📦 LOCAL`.
-
----
-
-## Módulos
-
-### 🛡️ SECURITY+
-Quiz de CompTIA Security+ con generación infinita de preguntas via Ollama.  
-Temas: Threats/Attacks, Cryptography, IAM, Network Security, IR, Governance, MITRE ATT&CK, NIST, ISO 27001, OWASP.
-
-### 🐧 LINUX CLI
-10 misiones SOC con terminal simulado integrado. No usa Ollama.  
-Cada misión incluye descripción, tarea concreta, pista y solución revelable.
-
-### 🌐 NETWORKING
-4 submodos:
-
-| Submodo | Descripción | Motor |
-|---|---|---|
-| 📡 SUBNETTING | Ejercicios aleatorios: calcula network, mask, broadcast, first/last host, hosts útiles. Incluye guía de cálculo paso a paso para cada red. | Local |
-| 🔌 PORTS | Flashcards de puertos conocidos — identifica protocolo o servicio (21, 22, 25, 53, 80, 443, 3389…) | Local |
-| 🗺 TOPOLOGY | Diagramas SVG de topologías de red (bus, estrella, anillo, malla, árbol, híbrida). Preguntas sobre tipo de topología y características. | Local |
-| ❓ Q&A | Quiz infinito de redes via Ollama — OSI, TCP/IP, routing, VLANs, ACLs, QoS, troubleshooting, seguridad. | Ollama |
+| Categoría | Descripción |
+|-----------|-------------|
+| FUNDAMENTALS | CIA triad, MFA, controles, Zero Trust |
+| CRYPTOGRAPHY | AES, RSA, PKI, TLS, hashing |
+| THREATS | Malware, phishing, APT, supply chain |
+| WEB SECURITY | OWASP Top 10, XSS, SQLi, CSRF |
+| NETWORK | Firewalls, IDS/IPS, protocolos, ataques de red |
+| IAM | RBAC, SAML, OAuth, PAM, Kerberos |
+| IR | Fases IR, forense digital, cadena de custodia |
+| GOVERNANCE | ISO 27001, GDPR, ENS, gestión de riesgos |
+| FRAMEWORKS | MITRE ATT&CK, NIST CSF, Cyber Kill Chain |
+| HARDENING | Patch management, CIS Benchmarks, bastionado |
 
 ---
 
-## Dificultades
+## 🛠️ Stack técnico
 
-| Nivel | Perfil |
-|---|---|
-| RECRUIT | Conceptos básicos — para empezar |
-| ANALYST | Escenarios reales — nivel SOC junior |
-| EXPERT | Arquitecturas avanzadas — threat hunting, forense, MITRE |
-
----
-
-## Gamificación
-
-- Contador Total / Correct / Errors por módulo
-- Streak tracker 🔥 (activa desde 3 respuestas correctas seguidas)
-- Flash visual ✓ / ✗ al responder
+- **Frontend**: HTML5 + CSS3 + JavaScript vanilla (sin frameworks)
+- **Fuentes**: Google Fonts — Orbitron, Share Tech Mono, Rajdhani
+- **IA local**: [Ollama](https://ollama.com) con modelos `gemma3:1b` / `qwen2.5-coder:7b`
+- **Deploy**: GitHub Pages (estático, sin build step)
 
 ---
 
-> En GitHub Pages Ollama no estará disponible (servicio local), pero todos los módulos sin IA funcionan perfectamente y los módulos con IA usan el banco de preguntas integrado.
+## 📁 Contexto del proyecto
+
+Este proyecto forma parte del **laboratorio de ciberseguridad** desarrollado durante el **IFCT0109 — Certificado de Profesionalidad Nivel 3 (Seguridad Informática)**, orientado a preparación para rol de **SOC Analyst / Blue Team**.
+
+Repositorio principal del lab: [cybersecurity-lab](https://github.com/edwardvarelamariani-bit/cybersecurity-lab)
 
 ---
 
-## Stack técnico
+## 📄 Licencia
 
-- HTML + CSS + JS vanilla — sin frameworks, sin dependencias externas
-- Fuentes: Orbitron, Rajdhani, Share Tech Mono (Google Fonts)
-- IA: Ollama API (`/api/generate`) con modelo `qwen2.5-coder:7b`
+MIT — libre para uso educativo y personal.
 
+---
+
+<div align="center">
+  <sub>Built by <a href="https://github.com/edwardvarelamariani-bit">Edward Varela</a> · IFCT0109 · Alicante, España</sub>
+</div>
