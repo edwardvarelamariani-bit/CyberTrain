@@ -24,11 +24,18 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .header-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);margin-top:3px;letter-spacing:2px;}
 
 /* OLLAMA STATUS */
-.ollama-status{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;}
+.ollama-status{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;flex-wrap:wrap;}
 .ollama-dot{width:7px;height:7px;border-radius:50%;background:var(--dim);animation:pulse 2s infinite;}
 .ollama-dot.ok{background:var(--green);box-shadow:0 0 6px var(--green);}
 .ollama-dot.err{background:var(--red);animation:none;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.model-selector-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;}
+.model-select{background:var(--bg2);border:1px solid var(--border);color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;padding:3px 8px;cursor:pointer;outline:none;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);transition:border-color .2s;display:none;}
+.model-select:focus{border-color:var(--cyan);}
+.model-select.visible{display:block;}
+.model-select option{background:var(--bg2);color:var(--text);}
+.model-label{color:var(--dim);display:none;}
+.model-label.visible{display:inline;}
 
 /* TABS */
 .tabs{display:flex;margin-bottom:15px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:3px;}
@@ -203,6 +210,45 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 /* AI badge */
 .ai-badge{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--purple);letter-spacing:1px;padding:1px 5px;border:1px solid var(--purple);opacity:.6;}
 .fallback-badge{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--yellow);letter-spacing:1px;padding:1px 5px;border:1px solid var(--yellow);opacity:.6;}
+
+/* ═══ EXAM MODE ═══ */
+.exam-bar{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);padding:8px 14px;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.exam-timer{font-family:'Orbitron',monospace;font-size:20px;font-weight:700;color:var(--cyan);text-shadow:0 0 10px var(--cyan);letter-spacing:3px;}
+.exam-timer.warn{color:var(--yellow);text-shadow:0 0 10px var(--yellow);}
+.exam-timer.danger{color:var(--red);text-shadow:0 0 10px var(--red);animation:blink 1s step-end infinite;}
+.exam-progress-wrap{flex:1;min-width:120px;max-width:220px;}
+.exam-progress-label{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:2px;margin-bottom:3px;}
+.exam-progress-bar{height:4px;background:var(--dim2);border-radius:2px;overflow:hidden;}
+.exam-progress-fill{height:100%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);transition:width .3s;}
+.exam-mode-badge{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--orange);border:1px solid var(--orange);padding:2px 8px;letter-spacing:2px;animation:pulse 2s infinite;}
+
+/* RESULTS SCREEN */
+.results-screen{display:none;animation:fadeIn .4s;}
+.results-screen.show{display:block;}
+.results-header{text-align:center;padding:20px 10px 10px;}
+.results-verdict{font-family:'Orbitron',monospace;font-size:clamp(22px,5vw,36px);font-weight:900;letter-spacing:4px;margin-bottom:6px;}
+.results-verdict.pass{color:var(--green);text-shadow:0 0 20px var(--green);}
+.results-verdict.fail{color:var(--red);text-shadow:0 0 20px var(--red);}
+.results-score{font-family:'Orbitron',monospace;font-size:clamp(36px,8vw,56px);font-weight:900;color:var(--cyan);text-shadow:0 0 24px var(--cyan);}
+.results-score-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:3px;margin-bottom:16px;}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:16px;}
+.results-stat{background:var(--bg2);border:1px solid var(--border);padding:12px;text-align:center;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.results-stat-val{font-family:'Orbitron',monospace;font-size:22px;font-weight:700;}
+.results-stat-lbl{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:2px;margin-top:2px;}
+.cat-breakdown{background:var(--card);border:1px solid var(--border);padding:14px;margin-bottom:14px;}
+.cat-breakdown-title{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--cyan);letter-spacing:3px;margin-bottom:12px;}
+.cat-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.cat-row-name{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text);letter-spacing:1px;min-width:110px;}
+.cat-row-bar-wrap{flex:1;height:6px;background:var(--dim2);border-radius:3px;overflow:hidden;min-width:60px;}
+.cat-row-bar{height:100%;border-radius:3px;transition:width .6s ease;}
+.cat-row-pct{font-family:'Share Tech Mono',monospace;font-size:9px;min-width:32px;text-align:right;}
+.cat-row-count{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim);min-width:40px;}
+.weakness-alert{background:rgba(255,45,85,.06);border:1px solid rgba(255,45,85,.3);padding:10px 14px;margin-bottom:14px;}
+.weakness-title{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--red);letter-spacing:2px;margin-bottom:6px;}
+.weakness-item{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text);padding:3px 0;border-bottom:1px solid var(--dim2);}
+.weakness-item:last-child{border:none;}
+.kbd-hint{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim);text-align:center;margin-top:8px;letter-spacing:1px;}
+.kbd{background:var(--bg2);border:1px solid var(--border);padding:1px 5px;border-radius:2px;color:var(--cyan2);}
 </style>
 </head>
 <body>
@@ -221,6 +267,10 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
   <div class="ollama-dot" id="ollama-dot"></div>
   <span id="ollama-label" style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:2px;">CHECKING OLLAMA...</span>
 </div>
+<div class="model-selector-row">
+  <span class="model-label" id="model-label">MODEL:</span>
+  <select class="model-select" id="model-select" onchange="onModelChange()"></select>
+</div>
 
 <!-- TABS -->
 <div class="tabs">
@@ -233,22 +283,49 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
      PANEL 1: SECURITY+ — OLLAMA INFINITE QUIZ
      ═══════════════════════════════════════════════════════ -->
 <div id="panel-security" class="panel active">
+
+  <!-- MODE SELECTOR -->
   <div class="diff-bar">
+    <span class="diff-label">MODE:</span>
+    <button id="mode-practice" class="diff-btn db-r active" onclick="setMode('practice')">PRACTICE</button>
+    <button id="mode-exam" class="diff-btn db-a" onclick="setMode('exam')">⏱ EXAM</button>
+  </div>
+
+  <!-- DIFFICULTY -->
+  <div class="diff-bar" id="diff-bar-row">
     <span class="diff-label">DIFFICULTY:</span>
     <button id="sd-r" class="diff-btn db-r active" onclick="secDiff('recruit')">RECRUIT</button>
     <button id="sd-a" class="diff-btn db-a" onclick="secDiff('analyst')">ANALYST</button>
     <button id="sd-e" class="diff-btn db-e" onclick="secDiff('expert')">EXPERT</button>
   </div>
-  <div class="stats-row">
+
+  <!-- STATS -->
+  <div class="stats-row" id="stats-row">
     <div class="stat-box"><div class="stat-val sv-t" id="s-tot">0</div><div class="stat-lbl">TOTAL</div></div>
     <div class="stat-box"><div class="stat-val sv-c" id="s-cor">0</div><div class="stat-lbl">CORRECT</div></div>
     <div class="stat-box"><div class="stat-val sv-w" id="s-err">0</div><div class="stat-lbl">ERRORS</div></div>
   </div>
   <div id="s-streak" class="streak-banner"><div class="streak-inner">🔥 STREAK: <span id="s-str-val">0</span></div></div>
+
+  <!-- EXAM BAR (hidden in practice) -->
+  <div id="exam-bar" style="display:none;" class="exam-bar">
+    <div>
+      <div class="exam-mode-badge">⏱ EXAM MODE</div>
+    </div>
+    <div class="exam-timer" id="exam-timer">45:00</div>
+    <div class="exam-progress-wrap">
+      <div class="exam-progress-label">PROGRESS: <span id="exam-q-count">0</span>/20</div>
+      <div class="exam-progress-bar"><div class="exam-progress-fill" id="exam-prog-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- LOADING -->
   <div id="sec-load" class="loading">
     <div class="loading-bar"></div>
     <div class="loading-msg" id="sec-load-msg">GENERATING QUESTION...</div>
   </div>
+
+  <!-- QUESTION CARD -->
   <div id="sec-card" style="display:none;">
     <div class="qcard">
       <div class="qcard-meta">
@@ -265,9 +342,41 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
       </div>
     </div>
     <div class="btn-row">
-      <button id="s-next" class="btn btn-g" onclick="secNext()" disabled>NEXT QUESTION →</button>
+      <button id="s-next" class="btn btn-g" onclick="secNext()" disabled>NEXT →</button>
+      <button id="s-abort" class="btn btn-p" onclick="abortExam()" style="display:none;">✕ ABORT EXAM</button>
+    </div>
+    <div class="kbd-hint" id="kbd-hint">
+      <span class="kbd">A</span> <span class="kbd">B</span> <span class="kbd">C</span> <span class="kbd">D</span> para responder &nbsp;|&nbsp; <span class="kbd">Enter</span> / <span class="kbd">Space</span> para siguiente
     </div>
   </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="results-screen" class="results-screen">
+    <div class="results-header">
+      <div class="results-verdict" id="results-verdict">PASS</div>
+      <div class="results-score" id="results-score">85%</div>
+      <div class="results-score-label">PUNTUACIÓN FINAL</div>
+    </div>
+    <div class="results-grid">
+      <div class="results-stat"><div class="results-stat-val sv-t" id="r-total">20</div><div class="results-stat-lbl">PREGUNTAS</div></div>
+      <div class="results-stat"><div class="results-stat-val sv-c" id="r-correct">17</div><div class="results-stat-lbl">CORRECTAS</div></div>
+      <div class="results-stat"><div class="results-stat-val sv-w" id="r-wrong">3</div><div class="results-stat-lbl">ERRORES</div></div>
+      <div class="results-stat"><div class="results-stat-val sv-s" id="r-time">12:34</div><div class="results-stat-lbl">TIEMPO</div></div>
+    </div>
+    <div class="cat-breakdown">
+      <div class="cat-breakdown-title">▸ DESGLOSE POR CATEGORÍA</div>
+      <div id="cat-breakdown-rows"></div>
+    </div>
+    <div id="weakness-box" class="weakness-alert" style="display:none;">
+      <div class="weakness-title">⚠ ÁREAS DE MEJORA DETECTADAS</div>
+      <div id="weakness-list"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-g" onclick="restartExam()">🔄 NUEVO EXAMEN</button>
+      <button class="btn btn-c" onclick="setMode('practice')">📚 MODO PRÁCTICA</button>
+    </div>
+  </div>
+
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
@@ -432,7 +541,7 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
    CONFIG — Ollama local
    ═══════════════════════════════════════════════════════ */
 const OLLAMA_URL = 'http://localhost:11434';
-const OLLAMA_MODEL = 'qwen2.5-coder:7b';
+let OLLAMA_MODEL = 'gemma3:1b'; // default, overridden by dropdown
 
 /* ═══════════════════════════════════════════════════════
    OLLAMA STATUS CHECK
@@ -441,8 +550,26 @@ async function checkOllama(){
   try{
     const r=await fetch(OLLAMA_URL+'/api/tags',{signal:AbortSignal.timeout(3000)});
     if(r.ok){
+      const json=await r.json();
+      const models=(json.models||[]).map(m=>m.name).filter(Boolean);
+
+      // Populate dropdown
+      const sel=document.getElementById('model-select');
+      sel.innerHTML='';
+      if(models.length>0){
+        models.forEach(m=>{
+          const opt=document.createElement('option');
+          opt.value=m; opt.textContent=m;
+          if(m===OLLAMA_MODEL||m.startsWith(OLLAMA_MODEL.split(':')[0]))opt.selected=true;
+          sel.appendChild(opt);
+        });
+        OLLAMA_MODEL=sel.value;
+        sel.classList.add('visible');
+        document.getElementById('model-label').classList.add('visible');
+      }
+
       document.getElementById('ollama-dot').className='ollama-dot ok';
-      document.getElementById('ollama-label').textContent='OLLAMA ONLINE — '+OLLAMA_MODEL;
+      document.getElementById('ollama-label').textContent='OLLAMA ONLINE';
       document.getElementById('ollama-label').style.color='var(--green)';
       return true;
     }
@@ -453,35 +580,63 @@ async function checkOllama(){
   return false;
 }
 
+function onModelChange(){
+  const sel=document.getElementById('model-select');
+  OLLAMA_MODEL=sel.value;
+}
+
 /* ═══════════════════════════════════════════════════════
-   OLLAMA API WRAPPER
+   OLLAMA API WRAPPER — con deduplicación cliente
    ═══════════════════════════════════════════════════════ */
-async function callOllama(prompt, fallback){
-  try{
-    const r=await fetch(OLLAMA_URL+'/api/generate',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:OLLAMA_MODEL,
-        prompt:prompt,
-        stream:false,
-        options:{temperature:0.8,num_ctx:4096}
-      }),
-      signal:AbortSignal.timeout(45000)
-    });
-    if(!r.ok)throw new Error('Ollama error');
-    const d=await r.json();
-    const txt=d.response.replace(/```json|```/g,'').trim();
-    // Extraer JSON del texto
-    const match=txt.match(/\{[\s\S]*\}/);
-    if(!match)throw new Error('No JSON found');
-    const parsed=JSON.parse(match[0]);
-    return{data:parsed,fromAI:true};
-  }catch(err){
-    console.warn('Ollama failed, using fallback:',err.message);
-    const idx=Math.floor(Math.random()*fallback.length);
-    return{data:fallback[idx],fromAI:false};
+const _seenQuestions = new Set();
+
+async function callOllama(prompt, fallback, retries=3){
+  for(let attempt=0; attempt<retries; attempt++){
+    try{
+      // Añadir seed aleatorio al prompt para forzar variación
+      const seedNote = `\n[SEED:${Math.random().toString(36).slice(2,8)}] Genera una pregunta NUEVA y DIFERENTE.`;
+      const r=await fetch(OLLAMA_URL+'/api/generate',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          model:OLLAMA_MODEL,
+          prompt:prompt+seedNote,
+          stream:false,
+          options:{temperature:0.95, top_p:0.9, top_k:60, num_ctx:4096, seed: Math.floor(Math.random()*999999)}
+        }),
+        signal:AbortSignal.timeout(45000)
+      });
+      if(!r.ok) throw new Error('Ollama error');
+      const d=await r.json();
+      const txt=d.response.replace(/```json|```/g,'').trim();
+      const match=txt.match(/\{[\s\S]*\}/);
+      if(!match) throw new Error('No JSON found');
+      const parsed=JSON.parse(match[0]);
+      if(!parsed.question) throw new Error('No question field');
+
+      // Deduplicación: normalizar y comparar
+      const key = parsed.question.toLowerCase().replace(/\s+/g,' ').substring(0,80);
+      if(_seenQuestions.has(key)){
+        console.warn(`Duplicate detected (attempt ${attempt+1}), retrying...`);
+        continue; // reintentar
+      }
+      _seenQuestions.add(key);
+      // Limpiar historial si crece demasiado
+      if(_seenQuestions.size > 200) _seenQuestions.clear();
+
+      return{data:parsed, fromAI:true};
+    }catch(err){
+      console.warn(`Ollama attempt ${attempt+1} failed:`, err.message);
+    }
   }
+  // Fallback: elegir uno no visto recientemente
+  const fresh = fallback.filter(f => {
+    const key = f.question.toLowerCase().substring(0,80);
+    return !_seenQuestions.has(key);
+  });
+  const pool = fresh.length > 0 ? fresh : fallback;
+  const idx = Math.floor(Math.random()*pool.length);
+  return{data:pool[idx], fromAI:false};
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -510,56 +665,356 @@ function streak(prefix,val){
 }
 
 /* ═══════════════════════════════════════════════════════
-   SECURITY+ MODULE — OLLAMA INFINITE
+   SECURITY+ MODULE — BANCO LOCAL + COLA PRE-GENERADA
    ═══════════════════════════════════════════════════════ */
-const secSt={diff:'recruit',total:0,correct:0,str:0,idx:0,ans:false};
 
-const secDiffDesc={
-  recruit:'EASY: conceptos básicos — tipos de malware, CIA triad, autenticación básica, firewalls, criptografía simétrica/asimétrica. Una sola idea por pregunta.',
-  analyst:'MEDIUM: escenarios reales — análisis de logs, respuesta a incidentes, técnicas de ataque (phishing, MitM, SQLi), hardening, gestión de vulnerabilidades, GDPR, ISO 27001.',
-  expert:'HARD: arquitectura avanzada — threat hunting, análisis forense, zero trust, SIEM tuning, malware analysis, MITRE ATT&CK, NIST, threat intelligence.'
+// ── CATEGORÍAS ROTATORIAS (el cliente controla el tema, no el modelo) ──
+const SEC_CATEGORIES = [
+  {name:'FUNDAMENTALS',   prompt:'CIA triad, autenticación MFA, principio mínimo privilegio, defense in depth, tipos de controles (preventivo/detectivo/correctivo)'},
+  {name:'CRYPTOGRAPHY',   prompt:'AES, RSA, ECC, hashing (SHA-256, MD5), PKI, certificados X.509, TLS/SSL, cifrado simétrico vs asimétrico, firmas digitales'},
+  {name:'THREATS',        prompt:'Malware (ransomware, rootkit, keylogger, RAT, worm), phishing, spear-phishing, vishing, BEC, insider threat, APT, zero-day'},
+  {name:'WEB SECURITY',   prompt:'OWASP Top 10, SQL Injection, XSS, CSRF, clickjacking, IDOR, directory traversal, cabeceras de seguridad HTTP'},
+  {name:'NETWORK',        prompt:'Firewalls, IDS/IPS, DMZ, VPN, NAT, segmentación de red, protocoles (DNS, DHCP, SNMP, SSH, RDP), ataques de red (MitM, ARP spoofing, DDoS)'},
+  {name:'IAM',            prompt:'RBAC, ABAC, DAC, MAC, SSO, SAML, OAuth, OpenID Connect, LDAP, Active Directory, privileged access management (PAM)'},
+  {name:'IR',             prompt:'Fases de respuesta a incidentes (preparación/identificación/contención/erradicación/recuperación/lecciones aprendidas), CSIRT, cadena de custodia, análisis forense'},
+  {name:'GOVERNANCE',     prompt:'ISO 27001, NIST CSF, GDPR, ENS, gestión de riesgos, BCP/DR, políticas de seguridad, auditorías, cumplimiento normativo'},
+  {name:'FRAMEWORKS',     prompt:'MITRE ATT&CK (tácticas/técnicas/procedimientos), NIST SP 800-53, CIS Controls, OWASP, PTES, Cyber Kill Chain'},
+  {name:'HARDENING',      prompt:'Bastionado de sistemas, patch management, CIS Benchmarks, configuración segura de servicios, eliminación de servicios innecesarios, SELinux/AppArmor'},
+];
+let secCatIdx = 0; // rota en orden, garantiza variedad
+
+// ── BANCO LOCAL: 80 PREGUNTAS BIEN HECHAS ──
+const SEC_BANK = [
+  // FUNDAMENTALS
+  {question:"¿Qué principio de seguridad establece que los usuarios deben tener solo los permisos mínimos necesarios para realizar su trabajo?",options:["A) Separación de funciones","B) Mínimo privilegio","C) Defense in depth","D) Zero trust"],correct:1,explanation:"El principio de mínimo privilegio (Least Privilege) limita el acceso de cada usuario/proceso al mínimo imprescindible. Reduce la superficie de ataque y limita el daño en caso de compromiso.",category:"FUNDAMENTALS",difficulty:"EASY"},
+  {question:"En la tríada CIA, ¿qué propiedad garantiza que los datos no han sido alterados sin autorización?",options:["A) Confidencialidad","B) Disponibilidad","C) Integridad","D) Autenticidad"],correct:2,explanation:"Integridad garantiza que los datos permanecen exactos y sin modificaciones no autorizadas. Se implementa con hashing (SHA-256), firmas digitales y controles de acceso estrictos.",category:"FUNDAMENTALS",difficulty:"EASY"},
+  {question:"¿Qué tipo de control de seguridad actúa DESPUÉS de que ocurre un incidente?",options:["A) Control preventivo","B) Control detectivo","C) Control correctivo","D) Control disuasorio"],correct:2,explanation:"Los controles correctivos actúan tras un incidente para restaurar sistemas y minimizar daños: backups, planes de recuperación, parches de emergencia. Los preventivos evitan el incidente, los detectivos lo identifican.",category:"FUNDAMENTALS",difficulty:"EASY"},
+  {question:"¿Qué concepto describe la estrategia de usar múltiples capas de seguridad independientes?",options:["A) Single point of failure","B) Security by obscurity","C) Defense in depth","D) Zero trust"],correct:2,explanation:"Defense in depth (defensa en profundidad) usa múltiples capas de control: si una falla, las siguientes contienen el ataque. Incluye controles físicos, técnicos y administrativos.",category:"FUNDAMENTALS",difficulty:"EASY"},
+  {question:"¿Cuál de los siguientes NO es un factor de autenticación válido en MFA?",options:["A) Algo que sabes (contraseña)","B) Algo que tienes (token)","C) Algo que eres (huella dactilar)","D) Algo que piensas (idea)"],correct:3,explanation:"Los tres factores de autenticación reconocidos son: conocimiento (contraseña/PIN), posesión (token/smartphone) e inherencia (biometría). 'Algo que piensas' no es un factor estándar de autenticación.",category:"FUNDAMENTALS",difficulty:"EASY"},
+  {question:"¿Qué principio de seguridad propone no confiar en ningún usuario o sistema por defecto, incluso dentro de la red corporativa?",options:["A) Defense in depth","B) Seguridad perimetral","C) Zero Trust","D) Mínimo privilegio"],correct:2,explanation:"Zero Trust parte de 'nunca confíes, siempre verifica'. Elimina el concepto de red interna de confianza, requiriendo autenticación y autorización continua para cada acceso.",category:"FUNDAMENTALS",difficulty:"MEDIUM"},
+  // CRYPTOGRAPHY
+  {question:"¿Qué algoritmo de hashing está considerado inseguro por ser vulnerable a colisiones?",options:["A) SHA-256","B) SHA-3","C) MD5","D) BLAKE2"],correct:2,explanation:"MD5 produce hashes de 128 bits y es vulnerable a ataques de colisión desde 2004. No debe usarse para integridad de datos ni almacenamiento de contraseñas. SHA-256 o bcrypt son alternativas seguras.",category:"CRYPTOGRAPHY",difficulty:"EASY"},
+  {question:"¿Qué componente de PKI emite y firma certificados digitales?",options:["A) CRL","B) CA (Certificate Authority)","C) CSR","D) OCSP"],correct:1,explanation:"La CA (Autoridad de Certificación) es la entidad de confianza que emite, firma y revoca certificados digitales. La raíz de confianza de toda la PKI. CRL y OCSP son mecanismos de revocación.",category:"CRYPTOGRAPHY",difficulty:"MEDIUM"},
+  {question:"En TLS, ¿qué algoritmo se usa para el intercambio seguro de claves simétricas?",options:["A) AES","B) SHA-256","C) Diffie-Hellman (DHE/ECDHE)","D) MD5"],correct:2,explanation:"Diffie-Hellman permite establecer una clave simétrica compartida sobre un canal inseguro sin transmitirla. ECDHE (Elliptic Curve) añade perfect forward secrecy — cada sesión genera claves únicas.",category:"CRYPTOGRAPHY",difficulty:"MEDIUM"},
+  {question:"¿Qué propiedad de TLS garantiza que comprometer la clave privada del servidor no expone sesiones pasadas?",options:["A) Certificate pinning","B) Perfect Forward Secrecy (PFS)","C) HSTS","D) OCSP Stapling"],correct:1,explanation:"Perfect Forward Secrecy usa claves de sesión efímeras (DHE/ECDHE). Cada sesión genera sus propias claves independientes, por lo que comprometer la clave del servidor no descifra tráfico anterior.",category:"CRYPTOGRAPHY",difficulty:"HARD"},
+  {question:"¿Cuál es la diferencia principal entre cifrado de flujo y cifrado de bloque?",options:["A) El cifrado de flujo siempre es más seguro","B) El cifrado de bloque procesa datos en bloques fijos; el de flujo cifra bit a bit","C) El cifrado de flujo usa clave asimétrica","D) No hay diferencia práctica"],correct:1,explanation:"Cifrado de bloque (AES, DES) procesa datos en bloques de tamaño fijo (128 bits en AES). Cifrado de flujo (RC4, ChaCha20) cifra bit a bit o byte a byte, útil para streams. AES-GCM combina ambos.",category:"CRYPTOGRAPHY",difficulty:"MEDIUM"},
+  // THREATS
+  {question:"¿Qué tipo de malware cifra los archivos de la víctima y pide rescate?",options:["A) Spyware","B) Adware","C) Ransomware","D) Rootkit"],correct:2,explanation:"Ransomware cifra archivos o bloquea sistemas exigiendo pago (generalmente criptomonedas). Ejemplos: WannaCry, REvil, LockBit. La mejor defensa: backups offline + parcheo + MFA.",category:"THREATS",difficulty:"EASY"},
+  {question:"¿Qué diferencia un ataque de phishing de un ataque de spear-phishing?",options:["A) Spear-phishing usa malware; phishing no","B) Spear-phishing está dirigido a una persona/organización específica","C) Phishing solo ataca email corporativo","D) No hay diferencia real"],correct:1,explanation:"Phishing es masivo e indiscriminado. Spear-phishing está personalizado — el atacante investiga a la víctima (nombre, cargo, contactos) para aumentar credibilidad. Whaling es spear-phishing dirigido a ejecutivos.",category:"THREATS",difficulty:"EASY"},
+  {question:"¿Qué es un rootkit?",options:["A) Herramienta para análisis forense","B) Malware que oculta su presencia modificando el SO a nivel de kernel","C) Tipo de ransomware para servidores","D) Script de elevación de privilegios"],correct:1,explanation:"Un rootkit se incrusta en el kernel del SO para ocultar procesos, archivos y conexiones maliciosas. Extremadamente difícil de detectar y eliminar — a menudo requiere reinstalación completa del sistema.",category:"THREATS",difficulty:"MEDIUM"},
+  {question:"¿Qué técnica usa un atacante para interceptar comunicaciones entre dos partes sin que lo sepan?",options:["A) DoS","B) Man-in-the-Middle (MitM)","C) SQL Injection","D) Brute Force"],correct:1,explanation:"En MitM el atacante se posiciona entre víctima y destino, pudiendo leer y modificar el tráfico. Técnicas comunes: ARP spoofing, DNS poisoning, SSL stripping. TLS con validación de certificados lo mitiga.",category:"THREATS",difficulty:"EASY"},
+  {question:"¿Qué es un ataque APT (Advanced Persistent Threat)?",options:["A) Ataque masivo y rápido tipo DDoS","B) Campaña prolongada y sigilosa por actores sofisticados (generalmente estado-nación)","C) Exploit de vulnerabilidad zero-day puntual","D) Ataque automatizado de fuerza bruta"],correct:1,explanation:"APT son campañas largas y metódicas por actores muy bien financiados (generalmente estados). Objetivos: espionaje, sabotaje, robo de IP. Características: persistencia, sigilo, movimiento lateral lento.",category:"THREATS",difficulty:"MEDIUM"},
+  {question:"¿Qué tipo de ataque explota la confianza de un usuario legítimo para ejecutar acciones no deseadas en una web donde está autenticado?",options:["A) XSS","B) CSRF","C) IDOR","D) Clickjacking"],correct:1,explanation:"CSRF (Cross-Site Request Forgery) engaña al navegador del usuario autenticado para enviar peticiones maliciosas. Mitigación: tokens CSRF únicos por sesión, atributo SameSite en cookies.",category:"WEB SECURITY",difficulty:"MEDIUM"},
+  // WEB SECURITY
+  {question:"¿Qué cabecera HTTP previene que el navegador ejecute scripts inyectados por atacantes?",options:["A) X-Frame-Options","B) Strict-Transport-Security","C) Content-Security-Policy","D) X-Content-Type-Options"],correct:2,explanation:"Content-Security-Policy (CSP) define fuentes permitidas de scripts, estilos e imágenes. Mitiga XSS al impedir ejecución de scripts no autorizados. X-Frame-Options previene clickjacking.",category:"WEB SECURITY",difficulty:"MEDIUM"},
+  {question:"¿Qué vulnerabilidad permite a un atacante acceder a recursos de otros usuarios cambiando un ID en la URL?",options:["A) XSS","B) SQL Injection","C) IDOR (Insecure Direct Object Reference)","D) Path Traversal"],correct:2,explanation:"IDOR ocurre cuando la app expone referencias directas a objetos sin verificar autorización. Ejemplo: cambiar /user/1234/profile por /user/1235/profile y ver datos de otro usuario.",category:"WEB SECURITY",difficulty:"MEDIUM"},
+  {question:"¿Cuál es la diferencia entre XSS reflejado y XSS almacenado?",options:["A) El reflejado es más peligroso siempre","B) El almacenado persiste en la BBDD y afecta a todos los usuarios; el reflejado solo al que clica el enlace malicioso","C) No hay diferencia funcional","D) El reflejado requiere acceso al servidor"],correct:1,explanation:"XSS almacenado (persistente) guarda el payload en la BBDD — afecta a cualquier usuario que cargue la página. XSS reflejado requiere que la víctima clique un enlace con el payload en la URL.",category:"WEB SECURITY",difficulty:"MEDIUM"},
+  {question:"¿Qué técnica de ataque permite leer archivos del sistema a través de rutas como '../../../etc/passwd'?",options:["A) SQL Injection","B) SSRF","C) Path Traversal","D) XXE"],correct:2,explanation:"Path Traversal (directory traversal) usa secuencias '../' para navegar fuera del directorio permitido y acceder a archivos arbitrarios del sistema. Mitigación: validación estricta de rutas, chroot.",category:"WEB SECURITY",difficulty:"MEDIUM"},
+  // NETWORK
+  {question:"¿Qué dispositivo opera en capa 3 del modelo OSI y toma decisiones de enrutamiento basadas en IP?",options:["A) Switch","B) Hub","C) Router","D) Bridge"],correct:2,explanation:"El router opera en capa 3 (Red) usando direcciones IP para encaminar paquetes entre redes. Los switches operan en capa 2 (Enlace) usando MAC addresses dentro de la misma red.",category:"NETWORK",difficulty:"EASY"},
+  {question:"¿Qué tipo de IDS analiza el tráfico de red buscando patrones conocidos de ataques?",options:["A) HIDS basado en anomalías","B) NIDS basado en firmas","C) WAF","D) SIEM"],correct:1,explanation:"NIDS (Network IDS) basado en firmas compara el tráfico contra una base de datos de patrones de ataques conocidos. Rápido y con pocos falsos positivos, pero inefectivo contra ataques zero-day.",category:"NETWORK",difficulty:"MEDIUM"},
+  {question:"¿Qué protocolo resuelve nombres de dominio a direcciones IP y es frecuentemente objetivo de ataques de spoofing?",options:["A) DHCP","B) SNMP","C) DNS","D) NTP"],correct:2,explanation:"DNS traduce nombres (google.com) a IPs. DNS spoofing/poisoning redirige tráfico a servidores maliciosos. DNSSEC añade firmas criptográficas para autenticar respuestas DNS.",category:"NETWORK",difficulty:"EASY"},
+  {question:"¿Qué técnica de ataque agota los recursos de un servidor enviando peticiones SYN sin completar el handshake TCP?",options:["A) UDP flood","B) SYN flood","C) Ping of Death","D) Smurf attack"],correct:1,explanation:"SYN flood explota el handshake TCP de 3 vías. El atacante envía SYNs con IP falsa — el servidor responde SYN-ACK y espera el ACK que nunca llega, agotando la tabla de conexiones semi-abiertas.",category:"NETWORK",difficulty:"MEDIUM"},
+  {question:"¿Qué protocolo permite administrar dispositivos de red y es vulnerable si se usa la versión 1 o 2c?",options:["A) SSH","B) SNMP","C) RADIUS","D) Syslog"],correct:1,explanation:"SNMP (Simple Network Management Protocol) gestiona dispositivos de red. v1/v2c usan 'community strings' en texto plano como autenticación. SNMPv3 añade autenticación y cifrado.",category:"NETWORK",difficulty:"MEDIUM"},
+  // IAM
+  {question:"¿Qué modelo de control de acceso asigna permisos basándose en el rol del usuario dentro de la organización?",options:["A) DAC (Discretionary Access Control)","B) MAC (Mandatory Access Control)","C) RBAC (Role-Based Access Control)","D) ABAC (Attribute-Based Access Control)"],correct:2,explanation:"RBAC asigna permisos a roles (admin, analista, auditor) y los usuarios heredan permisos según su rol. Simplifica la gestión en organizaciones grandes. Es el modelo más común en entornos empresariales.",category:"IAM",difficulty:"EASY"},
+  {question:"¿Qué protocolo estándar permite SSO federado entre organizaciones usando tokens XML?",options:["A) OAuth 2.0","B) SAML 2.0","C) OpenID Connect","D) LDAP"],correct:1,explanation:"SAML (Security Assertion Markup Language) permite SSO federado intercambiando aserciones XML entre Identity Provider (IdP) y Service Provider (SP). Muy usado en entornos corporativos.",category:"IAM",difficulty:"MEDIUM"},
+  {question:"¿Cuál es la diferencia entre autenticación y autorización?",options:["A) Son sinónimos","B) Autenticación verifica identidad; autorización determina qué puede hacer","C) Autorización siempre precede a la autenticación","D) Autenticación es solo para usuarios humanos"],correct:1,explanation:"Autenticación (AuthN) verifica que eres quien dices ser (contraseña, certificado, biometría). Autorización (AuthZ) determina qué recursos y acciones tiene permitidos esa identidad ya verificada.",category:"IAM",difficulty:"EASY"},
+  {question:"¿Qué solución gestiona de forma segura el acceso y las credenciales de cuentas privilegiadas?",options:["A) SIEM","B) PAM (Privileged Access Management)","C) DLP","D) NAC"],correct:1,explanation:"PAM controla y audita el acceso a cuentas privilegiadas (root, admin). Funciones: vaulting de credenciales, sesiones grabadas, just-in-time access, rotación automática de contraseñas.",category:"IAM",difficulty:"MEDIUM"},
+  // IR
+  {question:"¿Cuál es la primera fase del proceso de respuesta a incidentes según NIST SP 800-61?",options:["A) Identificación","B) Contención","C) Preparación","D) Erradicación"],correct:2,explanation:"NIST SP 800-61 define 4 fases: Preparación → Detección y Análisis → Contención/Erradicación/Recuperación → Post-incidente. La preparación (políticas, herramientas, formación) es crítica ANTES del incidente.",category:"IR",difficulty:"MEDIUM"},
+  {question:"En análisis forense digital, ¿qué principio establece que la evidencia debe recopilarse en orden de mayor a menor volatilidad?",options:["A) Principio de Locard","B) Orden de volatilidad (RFC 3227)","C) Chain of custody","D) Non-repudiation"],correct:1,explanation:"RFC 3227 establece recopilar primero la evidencia más volátil: registros CPU/caché → memoria RAM → conexiones de red → procesos → disco → logs. La memoria RAM se pierde al apagar el sistema.",category:"IR",difficulty:"HARD"},
+  {question:"¿Qué es la 'cadena de custodia' en análisis forense?",options:["A) El registro de todos los permisos de un sistema","B) Documentación continua que rastrea quién tuvo acceso a la evidencia y cuándo","C) El procedimiento para restaurar sistemas tras un incidente","D) El proceso de cifrado de evidencias digitales"],correct:1,explanation:"La cadena de custodia documenta quién recopiló, manejó, transfirió y analizó la evidencia. Es crítica para que las pruebas sean admisibles en procesos legales y garantizar su integridad.",category:"IR",difficulty:"MEDIUM"},
+  // GOVERNANCE
+  {question:"¿Qué norma internacional define los requisitos para un Sistema de Gestión de Seguridad de la Información (SGSI)?",options:["A) NIST CSF","B) ISO/IEC 27001","C) PCI-DSS","D) COBIT"],correct:1,explanation:"ISO 27001 es el estándar internacional para SGSI. Define requisitos para establecer, implementar y mejorar la gestión de seguridad. La certificación demuestra madurez en seguridad de la información.",category:"GOVERNANCE",difficulty:"EASY"},
+  {question:"¿Qué regulación europea protege los datos personales de ciudadanos de la UE?",options:["A) NIS2","B) PCI-DSS","C) GDPR","D) HIPAA"],correct:2,explanation:"GDPR (Reglamento General de Protección de Datos) establece derechos sobre datos personales de ciudadanos UE. Multas hasta 20M€ o 4% facturación global. Requiere notificación de brechas en 72 horas.",category:"GOVERNANCE",difficulty:"EASY"},
+  {question:"En gestión de riesgos, ¿qué opción describe 'transferir el riesgo'?",options:["A) Implementar controles técnicos para reducirlo","B) Aceptar el riesgo conscientemente","C) Contratar un seguro o externalizar la actividad","D) Eliminar la actividad que genera el riesgo"],correct:2,explanation:"Transferir el riesgo desplaza el impacto financiero a un tercero: seguros cibernéticos, contratos con SLAs, outsourcing. No elimina el riesgo — lo gestiona contractualmente.",category:"GOVERNANCE",difficulty:"MEDIUM"},
+  {question:"¿Qué diferencia un RPO de un RTO en continuidad de negocio?",options:["A) Son el mismo concepto","B) RPO es la máxima pérdida de datos aceptable; RTO es el tiempo máximo para restaurar el servicio","C) RTO mide datos perdidos; RPO mide tiempo de restauración","D) Solo aplican a sistemas cloud"],correct:1,explanation:"RPO (Recovery Point Objective): máxima pérdida de datos aceptable — determina frecuencia de backups. RTO (Recovery Time Objective): tiempo máximo para restaurar el servicio tras un fallo. Ambos son críticos en BCP/DR.",category:"GOVERNANCE",difficulty:"MEDIUM"},
+  // FRAMEWORKS
+  {question:"En MITRE ATT&CK, ¿qué representa una 'táctica'?",options:["A) Una herramienta específica usada por un atacante","B) El objetivo o 'por qué' de una acción del atacante","C) Un indicador de compromiso (IOC)","D) Un grupo de amenaza específico"],correct:1,explanation:"En ATT&CK, las tácticas representan el OBJETIVO del atacante (Initial Access, Persistence, Lateral Movement...). Las técnicas son el CÓMO (métodos específicos para lograr cada táctica).",category:"FRAMEWORKS",difficulty:"MEDIUM"},
+  {question:"¿Cuántas fases tiene el Cyber Kill Chain de Lockheed Martin?",options:["A) 5","B) 6","C) 7","D) 9"],correct:2,explanation:"Cyber Kill Chain tiene 7 fases: Reconocimiento → Weaponization → Delivery → Exploitation → Installation → Command & Control → Actions on Objectives. Cada fase es una oportunidad de detección y disrupción.",category:"FRAMEWORKS",difficulty:"MEDIUM"},
+  {question:"¿Qué función del NIST CSF corresponde a 'detectar la ocurrencia de un evento de ciberseguridad'?",options:["A) Identify","B) Protect","C) Detect","D) Respond"],correct:2,explanation:"NIST CSF tiene 5 funciones: Identify, Protect, Detect, Respond, Recover. 'Detect' incluye monitorización continua, SIEM, detección de anomalías — para descubrir incidentes en tiempo real.",category:"FRAMEWORKS",difficulty:"EASY"},
+  // HARDENING
+  {question:"¿Qué proceso asegura que los sistemas operativos y aplicaciones tienen las últimas correcciones de seguridad aplicadas?",options:["A) Vulnerability scanning","B) Patch management","C) Penetration testing","D) Configuration management"],correct:1,explanation:"Patch management es el proceso de identificar, adquirir, probar y aplicar parches. Crítico para cerrar vulnerabilidades conocidas. Un proceso estructurado incluye: inventario, priorización por CVSS, testing, despliegue.",category:"HARDENING",difficulty:"EASY"},
+  {question:"¿Qué herramienta proporciona benchmarks de configuración segura para sistemas operativos y aplicaciones?",options:["A) OWASP ZAP","B) CIS Benchmarks","C) Metasploit","D) Nessus"],correct:1,explanation:"CIS (Center for Internet Security) Benchmarks son guías de configuración segura para SO, navegadores, servidores y aplicaciones cloud. Son estándar de referencia para bastionado en entornos empresariales.",category:"HARDENING",difficulty:"MEDIUM"},
+  {question:"¿Qué técnica de hardening desactiva o elimina todos los servicios, puertos y protocolos no necesarios?",options:["A) Blacklisting","B) Attack surface reduction","C) Network segmentation","D) Application whitelisting"],correct:1,explanation:"Reducción de superficie de ataque elimina todo componente innecesario: servicios desactivados, puertos cerrados, protocolos inseguros eliminados (Telnet, FTP, SNMPv1). Menos componentes = menos vectores de ataque.",category:"HARDENING",difficulty:"MEDIUM"},
+  // EXTRA MIX
+  {question:"¿Qué es un ataque de fuerza bruta 'credential stuffing'?",options:["A) Probar todas las combinaciones posibles de contraseñas","B) Usar credenciales filtradas de otras brechas para acceder a otros servicios","C) Interceptar hashes de contraseñas en tránsito","D) Explotar contraseñas por defecto en dispositivos IoT"],correct:1,explanation:"Credential stuffing usa combinaciones usuario/contraseña de brechas previas (disponibles en dark web) contra otros servicios. Funciona porque los usuarios reutilizan contraseñas. MFA es la defensa más efectiva.",category:"THREATS",difficulty:"MEDIUM"},
+  {question:"¿Qué protocolo se usa para centralizar la autenticación de usuarios en redes WiFi empresariales?",options:["A) WEP","B) WPA2-Personal","C) RADIUS con 802.1X","D) LDAP directo"],correct:2,explanation:"802.1X con RADIUS proporciona autenticación por usuario/certificado en WiFi empresarial (WPA2/3-Enterprise). Cada usuario tiene credenciales únicas. WPA2-Personal usa una PSK compartida — menos seguro.",category:"NETWORK",difficulty:"MEDIUM"},
+  {question:"¿Qué herramienta de seguridad correlaciona eventos de múltiples fuentes para detectar amenazas?",options:["A) IDS","B) WAF","C) SIEM","D) DLP"],correct:2,explanation:"SIEM (Security Information and Event Management) centraliza logs de múltiples fuentes (firewalls, endpoints, servidores), correlaciona eventos y genera alertas. Es el núcleo de operaciones de un SOC.",category:"FUNDAMENTALS",difficulty:"EASY"},
+  {question:"¿Qué tipo de análisis de malware ejecuta el código en un entorno aislado para observar su comportamiento?",options:["A) Análisis estático","B) Análisis dinámico (sandbox)","C) Análisis de firma","D) Ingeniería inversa"],correct:1,explanation:"Análisis dinámico ejecuta el malware en un sandbox aislado para observar comportamiento real: conexiones de red, archivos creados, procesos lanzados, cambios de registro. Complementa el análisis estático.",category:"IR",difficulty:"MEDIUM"},
+  {question:"¿Qué vulnerabilidad explota la falta de validación en parsers XML para acceder a archivos o realizar SSRF?",options:["A) CSRF","B) XXE (XML External Entity)","C) SSTI","D) IDOR"],correct:1,explanation:"XXE injection explota parsers XML inseguros usando entidades externas para: leer archivos locales, realizar SSRF o incluso ejecutar código. Mitigación: deshabilitar procesamiento de entidades externas.",category:"WEB SECURITY",difficulty:"HARD"},
+  {question:"¿Qué es el 'principio de separación de funciones' en seguridad?",options:["A) Dividir el tráfico de red en VLANs","B) Requerir que múltiples personas autoricen acciones críticas, evitando que una sola persona tenga control total","C) Separar entornos de producción y desarrollo","D) Dividir las claves criptográficas entre varios administradores"],correct:1,explanation:"Separación de funciones (Segregation of Duties) impide que una sola persona controle procesos críticos completos. Ejemplo: quien autoriza pagos no puede ejecutarlos. Previene fraude y errores.",category:"FUNDAMENTALS",difficulty:"MEDIUM"},
+  {question:"¿Qué técnica de ataque inserta código malicioso en un proceso legítimo para evadir detección?",options:["A) DLL hijacking","B) Process injection","C) Privilege escalation","D) Token impersonation"],correct:1,explanation:"Process injection inyecta código malicioso en el espacio de memoria de un proceso legítimo (explorer.exe, svchost.exe). El código malicioso hereda los privilegios y la confianza del proceso víctima.",category:"THREATS",difficulty:"HARD"},
+  {question:"¿Qué diferencia a un pentest de caja negra de uno de caja blanca?",options:["A) Caja negra usa herramientas automatizadas; caja blanca es manual","B) En caja negra el tester no tiene información previa; en caja blanca tiene acceso completo al código/arquitectura","C) Caja blanca es más rápido siempre","D) No hay diferencia relevante"],correct:1,explanation:"Black box simula un atacante externo sin información — más realista pero menos exhaustivo. White box el tester conoce arquitectura y código — más completo. Gray box es intermedio (credenciales básicas).",category:"IR",difficulty:"MEDIUM"},
+  {question:"¿Qué protocolo seguro sustituye a Telnet para administración remota de sistemas?",options:["A) FTP","B) RDP","C) SSH","D) SNMP"],correct:2,explanation:"SSH (Secure Shell) cifra la comunicación de administración remota. Telnet transmite en texto plano. SSH usa criptografía asimétrica para autenticación y simétrica para la sesión. Puerto por defecto: 22.",category:"NETWORK",difficulty:"EASY"},
+  {question:"¿Qué es la 'autenticación basada en riesgo' (Risk-Based Authentication)?",options:["A) Autenticación solo para sistemas de alto riesgo","B) Ajusta el nivel de autenticación requerido según el contexto (ubicación, dispositivo, comportamiento)","C) Sistema de autenticación para evaluadores de riesgos","D) MFA obligatorio para todas las operaciones"],correct:1,explanation:"RBA evalúa el contexto de cada acceso (nueva ubicación, dispositivo desconocido, hora inusual) y solicita autenticación adicional cuando detecta anomalías. Equilibra seguridad y experiencia de usuario.",category:"IAM",difficulty:"HARD"},
+  {question:"¿Qué tipo de firewall inspecciona el estado de las conexiones TCP además del tráfico individual?",options:["A) Packet filtering","B) Stateful firewall","C) Proxy firewall","D) WAF"],correct:1,explanation:"Firewall stateful (de inspección de estado) mantiene tabla de conexiones activas. Permite respuestas a conexiones iniciadas desde dentro, bloqueando paquetes que no corresponden a una sesión válida.",category:"NETWORK",difficulty:"MEDIUM"},
+  {question:"¿Qué indica un valor CVSS de 9.8?",options:["A) Vulnerabilidad de baja criticidad","B) Puntuación media — requiere atención en próximo ciclo","C) Vulnerabilidad crítica que requiere atención inmediata","D) Vulnerabilidad sin exploit público conocido"],correct:2,explanation:"CVSS (Common Vulnerability Scoring System) puntúa del 0 al 10: 0-3.9 bajo, 4-6.9 medio, 7-8.9 alto, 9-10 crítico. Un 9.8 indica vulnerabilidad crítica — explotable remotamente, sin autenticación, alto impacto.",category:"GOVERNANCE",difficulty:"EASY"},
+  {question:"¿Qué herramienta se usa para capturar y analizar paquetes de red en tiempo real?",options:["A) Nmap","B) Wireshark","C) Metasploit","D) Burp Suite"],correct:1,explanation:"Wireshark es el analizador de protocolos más usado. Captura tráfico de red en tiempo real para análisis: debugging, detección de malware, análisis forense, troubleshooting. Soporta cientos de protocolos.",category:"NETWORK",difficulty:"EASY"},
+  {question:"¿Qué tipo de ataque se aprovecha de dependencias de software maliciosas en cadenas de suministro?",options:["A) Zero-day exploit","B) Supply chain attack","C) Watering hole attack","D) Insider threat"],correct:1,explanation:"Supply chain attacks comprometen software legítimo en su proceso de desarrollo/distribución. Ejemplo: SolarWinds (2020) — los atacantes modificaron actualizaciones legítimas que instalaron miles de organizaciones.",category:"THREATS",difficulty:"HARD"},
+  {question:"¿Qué mecanismo de Windows impide que procesos sin privilegios modifiquen archivos del sistema?",options:["A) Windows Firewall","B) User Account Control (UAC)","C) Windows Defender","D) BitLocker"],correct:1,explanation:"UAC solicita confirmación o credenciales de admin para operaciones privilegiadas. Implementa el principio de mínimo privilegio — los usuarios trabajan con privilegios estándar y solo elevan cuando es necesario.",category:"HARDENING",difficulty:"EASY"},
+  {question:"¿Qué técnica de red crea redes lógicas separadas sobre la misma infraestructura física?",options:["A) NAT","B) VPN","C) VLAN","D) DMZ"],correct:2,explanation:"VLANs (Virtual LANs) segmentan la red lógicamente aunque compartan switches físicos. Cada VLAN es un dominio de broadcast independiente. El tráfico entre VLANs requiere routing (capa 3).",category:"NETWORK",difficulty:"EASY"},
+  {question:"¿Qué protocolo proporciona autenticación centralizada para redes dial-up y VPN?",options:["A) TACACS+","B) RADIUS","C) Kerberos","D) SAML"],correct:1,explanation:"RADIUS (Remote Authentication Dial-In User Service) centraliza autenticación, autorización y accounting (AAA) para accesos remotos, WiFi y VPN. TACACS+ es alternativa de Cisco con cifrado completo de payload.",category:"IAM",difficulty:"MEDIUM"},
+  {question:"¿Qué es el 'watering hole attack'?",options:["A) Ataque DDoS contra infraestructura de agua","B) Comprometer sitios web legítimos frecuentados por el objetivo para infectarlos al visitarlos","C) Técnica de phishing por email masivo","D) Ataque de fuerza bruta contra formularios de login"],correct:1,explanation:"Watering hole compromete sitios web que visita habitualmente el objetivo (sector, empresa). Cuando la víctima visita el sitio comprometido, se infecta con malware. Difícil de detectar — el sitio es legítimo.",category:"THREATS",difficulty:"HARD"},
+  {question:"¿Qué función cumple un HSM (Hardware Security Module)?",options:["A) Gestionar logs de seguridad","B) Proteger y gestionar claves criptográficas en hardware dedicado a prueba de manipulaciones","C) Monitorizar el tráfico de red cifrado","D) Proporcionar autenticación biométrica"],correct:1,explanation:"HSM es hardware dedicado para operaciones criptográficas: generación, almacenamiento y gestión de claves en entorno físicamente seguro. Las claves nunca salen del HSM en claro. Usado en PKI, banca, CA.",category:"CRYPTOGRAPHY",difficulty:"HARD"},
+  {question:"¿Qué tipo de escaneo Nmap envía paquetes SYN sin completar el handshake TCP?",options:["A) Connect scan (-sT)","B) SYN scan / stealth scan (-sS)","C) UDP scan (-sU)","D) XMAS scan (-sX)"],correct:1,explanation:"SYN scan (-sS) envía SYN y analiza la respuesta (SYN-ACK = abierto, RST = cerrado) sin completar el handshake. Más rápido y sigiloso que Connect scan — no aparece en logs de aplicación del servicio.",category:"NETWORK",difficulty:"MEDIUM"},
+  {question:"¿Qué es el 'lateral movement' en el contexto de ATT&CK?",options:["A) Movimiento físico del atacante entre instalaciones","B) Técnicas para moverse entre sistemas dentro de la red comprometida","C) Técnica para escalar privilegios verticalmente","D) Proceso de exfiltración de datos"],correct:1,explanation:"Lateral movement son técnicas para propagarse por la red interna tras la intrusión inicial: Pass-the-Hash, PsExec, WMI, RDP, SMB. El objetivo es alcanzar sistemas de mayor valor desde el punto de entrada inicial.",category:"FRAMEWORKS",difficulty:"MEDIUM"},
+  {question:"¿Qué medida mitiga eficazmente los ataques de SQL Injection?",options:["A) Cifrado de la base de datos","B) Prepared statements y consultas parametrizadas","C) Firewall de red perimetral","D) Autenticación de doble factor"],correct:1,explanation:"Prepared statements separan el código SQL de los datos del usuario — el input nunca se interpreta como código. Los ORMs también ayudan. El WAF es complementario pero no suficiente por sí solo.",category:"WEB SECURITY",difficulty:"EASY"},
+  {question:"¿Qué es el 'pivoting' en un pentest?",options:["A) Cambiar de herramienta durante el ataque","B) Usar un sistema comprometido como punto de salto para atacar otros sistemas internos","C) Técnica de escalada de privilegios en Linux","D) Método para evadir firewalls"],correct:1,explanation:"Pivoting usa un host comprometido como proxy para atacar segmentos de red no accesibles directamente. Herramientas: Metasploit (route), SSH tunneling, Chisel. Es clave en fases de lateral movement.",category:"THREATS",difficulty:"HARD"},
+  {question:"¿Qué tipo de análisis forense examina imágenes de disco en busca de archivos eliminados?",options:["A) Análisis de memoria (memory forensics)","B) Análisis de red (network forensics)","C) Análisis de disco (disk forensics)","D) Análisis de malware"],correct:2,explanation:"Disk forensics analiza imágenes forenses de almacenamiento: recupera archivos eliminados, analiza MFT (NTFS), examina tiempos (MACE), recupera particiones. Herramientas: Autopsy, FTK, Sleuth Kit.",category:"IR",difficulty:"MEDIUM"},
+  {question:"¿Qué protocolo proporciona autenticación mutua en redes Windows usando tickets Kerberos?",options:["A) NTLM","B) LDAP","C) Kerberos","D) RADIUS"],correct:2,explanation:"Kerberos es el protocolo de autenticación estándar en Active Directory. Usa tickets cifrados (TGT/TGS) emitidos por el KDC. No transmite contraseñas en la red. NTLM es el protocolo legacy menos seguro.",category:"IAM",difficulty:"MEDIUM"},
+  {question:"¿Qué herramienta escanea redes para descubrir hosts activos, puertos abiertos y versiones de servicios?",options:["A) Burp Suite","B) Wireshark","C) Nmap","D) Nikto"],correct:2,explanation:"Nmap (Network Mapper) es el escáner de red estándar: descubre hosts, escanea puertos TCP/UDP, detecta versiones de servicios y SO, ejecuta scripts NSE. Fundamental en reconocimiento y auditoría.",category:"NETWORK",difficulty:"EASY"},
+  {question:"¿Qué es una vulnerabilidad zero-day?",options:["A) Vulnerabilidad con parche disponible desde hace cero días","B) Vulnerabilidad desconocida para el fabricante, sin parche disponible","C) Error de configuración en el día de despliegue","D) Vulnerabilidad que solo existe en sistemas sin parches"],correct:1,explanation:"Zero-day es una vulnerabilidad desconocida para el fabricante (o conocida pero sin parche). Los atacantes explotan el período entre descubrimiento y publicación del parche. Muy valoradas en mercados de exploits.",category:"THREATS",difficulty:"EASY"},
+  {question:"¿Qué característica distingue WPA3 de WPA2 en redes WiFi?",options:["A) WPA3 usa cifrado DES en lugar de AES","B) WPA3 implementa SAE (Simultaneous Authentication of Equals) resistente a ataques de diccionario offline","C) WPA3 elimina el cifrado para mayor velocidad","D) WPA3 solo funciona con contraseñas de 20+ caracteres"],correct:1,explanation:"WPA3 reemplaza el handshake PSK por SAE (Dragonfly), que resiste ataques de diccionario offline y proporciona forward secrecy. WPA2 es vulnerable a PMKID attacks si la contraseña es débil.",category:"NETWORK",difficulty:"HARD"},
+];
+
+// ── COLA PRE-GENERADA (arquitectura async) ──
+const SEC_QUEUE = {
+  items: [],
+  maxSize: 5,
+  filling: false,
+  localIdx: 0,  // cursor rotatorio para banco local
 };
 
-const secFallback=[
-  {question:"¿Qué componente de la tríada CIA garantiza que solo usuarios autorizados accedan a la información?",options:["A) Confidencialidad","B) Integridad","C) Disponibilidad","D) Autenticación"],correct:0,explanation:"Confidencialidad asegura que solo usuarios autorizados accedan a los datos. Integridad previene modificaciones no autorizadas, y Disponibilidad garantiza acceso cuando se necesita. Estas tres forman la base de toda política de seguridad.",category:"FUNDAMENTALS",difficulty:"EASY"},
-  {question:"¿Cuál es la diferencia entre cifrado simétrico y asimétrico?",options:["A) Simétrico usa una clave; asimétrico usa dos claves (pública/privada)","B) Simétrico es más lento que asimétrico","C) Asimétrico solo sirve para emails","D) No hay diferencia real"],correct:0,explanation:"Cifrado simétrico usa una sola clave compartida (AES, DES) — más rápido. Asimétrico usa par de claves pública/privada (RSA, ECC) — permite intercambio seguro de claves sin compartir el secreto. TLS usa ambos.",category:"CRYPTOGRAPHY",difficulty:"EASY"},
-  {question:"¿Qué ataque explota consultas SQL mal sanitizadas en una aplicación web?",options:["A) Cross-Site Scripting (XSS)","B) SQL Injection","C) Man-in-the-Middle","D) Denial of Service"],correct:1,explanation:"SQL Injection inserta código SQL malicioso en campos de entrada. Puede extraer, modificar o borrar datos de BBDD. Se previene con prepared statements y ORMs. Es el #1 del OWASP Top 10 históricamente.",category:"WEB SECURITY",difficulty:"MEDIUM"},
-  {question:"¿Qué framework mapea técnicas y tácticas de actores de amenaza?",options:["A) NIST CSF","B) ISO 27001","C) MITRE ATT&CK","D) OWASP Top 10"],correct:2,explanation:"MITRE ATT&CK es una base de conocimiento de tácticas, técnicas y procedimientos (TTPs) usados por actores de amenaza reales. Es esencial para threat hunting y detección en SOC.",category:"FRAMEWORKS",difficulty:"MEDIUM"},
-  {question:"¿Qué es un ataque de tipo 'Pass the Hash'?",options:["A) Descifrar contraseñas con diccionario","B) Usar el hash NTLM para autenticarse sin conocer la contraseña","C) Interceptar tráfico HTTP sin cifrar","D) Explotar vulnerabilidades en protocolos hash"],correct:1,explanation:"Pass the Hash explota el protocolo NTLM — el hash capturado se usa directamente para autenticarse sin necesidad de crackear la contraseña. Muy común en movimiento lateral en entornos Windows/AD.",category:"THREATS",difficulty:"HARD"},
-];
+// Mezcla el banco local al iniciar (Fisher-Yates)
+function shuffleBank(){
+  for(let i=SEC_BANK.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [SEC_BANK[i],SEC_BANK[j]]=[SEC_BANK[j],SEC_BANK[i]];
+  }
+}
+shuffleBank();
+
+function secDiffDesc_prompt(diff){
+  const map={
+    recruit:'FÁCIL: conceptos básicos — CIA triad, autenticación, tipos de malware, firewalls básicos, criptografía simétrica/asimétrica.',
+    analyst:'MEDIO: escenarios reales — análisis de logs, phishing avanzado, hardening, GDPR, ISO 27001, respuesta a incidentes.',
+    expert:'DIFÍCIL: arquitectura avanzada — threat hunting, forense, zero trust, SIEM, MITRE ATT&CK, TTPs de APTs.'
+  };
+  return map[diff];
+}
+
+// Genera UNA pregunta vía Ollama con categoría forzada
+async function secGenOne(diff){
+  const cat = SEC_CATEGORIES[secCatIdx % SEC_CATEGORIES.length];
+  secCatIdx++;
+  const prompt=`Eres instructor CompTIA Security+ para estudiantes de ciberseguridad en España.
+Genera exactamente UNA pregunta de opción múltiple sobre la categoría: ${cat.name}.
+Subtemas de esta categoría: ${cat.prompt}.
+Nivel: ${secDiffDesc_prompt(diff)}.
+
+Responde SOLO con este JSON (sin texto antes ni después, sin markdown):
+{"question":"pregunta completa en español","options":["A) opción","B) opción","C) opción","D) opción"],"correct":0,"explanation":"explicación técnica 2-3 frases","category":"${cat.name}","difficulty":"EASY"}`;
+
+  const result = await callOllama(prompt, [], 2);
+  if(result.fromAI && result.data && result.data.question) return result;
+  // Si falla Ollama, sacar del banco local
+  return {data: SEC_BANK[SEC_QUEUE.localIdx++ % SEC_BANK.length], fromAI:false};
+}
+
+// Rellena la cola en background sin bloquear UI
+async function secFillQueue(){
+  if(SEC_QUEUE.filling) return;
+  SEC_QUEUE.filling = true;
+  while(SEC_QUEUE.items.length < SEC_QUEUE.maxSize){
+    try{
+      const q = await secGenOne(secSt.diff);
+      // Dedup antes de encolar
+      const key = q.data.question.toLowerCase().substring(0,80);
+      if(!_seenQuestions.has(key)){
+        _seenQuestions.add(key);
+        SEC_QUEUE.items.push(q);
+      }
+    }catch(e){ break; }
+  }
+  SEC_QUEUE.filling = false;
+}
+
+// Saca de la cola; si vacía, usa banco local inmediatamente
+function secDequeue(){
+  if(SEC_QUEUE.items.length > 0){
+    return SEC_QUEUE.items.shift();
+  }
+  // Fallback instantáneo desde banco local
+  const q = SEC_BANK[SEC_QUEUE.localIdx++ % SEC_BANK.length];
+  return {data:q, fromAI:false};
+}
+
+const secSt={diff:'recruit',total:0,correct:0,str:0,idx:0,ans:false};
+
+// ── EXAM STATE ──
+const EXAM = {
+  active: false,
+  mode: 'practice',  // 'practice' | 'exam'
+  questions: 20,
+  timeLimit: 45 * 60, // segundos
+  remaining: 0,
+  timerHandle: null,
+  startTime: null,
+  results: [],       // {cat, correct, diff}
+  catStats: {},      // {CAT: {total, correct}}
+};
+
+// ── MODE SWITCHER ──
+function setMode(mode){
+  EXAM.mode = mode;
+  ['practice','exam'].forEach(m => {
+    document.getElementById('mode-'+m).classList.toggle('active', m===mode);
+  });
+  if(mode === 'exam'){
+    startExam();
+  } else {
+    stopExam();
+    document.getElementById('exam-bar').style.display = 'none';
+    document.getElementById('s-abort').style.display = 'none';
+    document.getElementById('diff-bar-row').style.display = 'flex';
+    document.getElementById('stats-row').style.display = 'flex';
+    document.getElementById('s-streak').style.display = '';
+    document.getElementById('results-screen').classList.remove('show');
+    document.getElementById('sec-card').style.display = 'none';
+    SEC_QUEUE.items = [];
+    secFillQueue();
+    secLoad();
+  }
+}
+
+function startExam(){
+  EXAM.active = true;
+  EXAM.remaining = EXAM.timeLimit;
+  EXAM.startTime = Date.now();
+  EXAM.results = [];
+  EXAM.catStats = {};
+  // Reset stats
+  secSt.total=0; secSt.correct=0; secSt.str=0; secSt.idx=0;
+  document.getElementById('s-tot').textContent='0';
+  document.getElementById('s-cor').textContent='0';
+  document.getElementById('s-err').textContent='0';
+  // UI
+  document.getElementById('exam-bar').style.display = 'flex';
+  document.getElementById('s-abort').style.display = 'inline-block';
+  document.getElementById('diff-bar-row').style.display = 'none';
+  document.getElementById('stats-row').style.display = 'none';
+  document.getElementById('s-streak').style.display = 'none';
+  document.getElementById('results-screen').classList.remove('show');
+  updateExamTimer();
+  EXAM.timerHandle = setInterval(()=>{
+    EXAM.remaining--;
+    updateExamTimer();
+    if(EXAM.remaining <= 0) finishExam(true);
+  }, 1000);
+  SEC_QUEUE.items = [];
+  secFillQueue();
+  secLoad();
+}
+
+function stopExam(){
+  EXAM.active = false;
+  if(EXAM.timerHandle){ clearInterval(EXAM.timerHandle); EXAM.timerHandle=null; }
+}
+
+function abortExam(){
+  if(!confirm('¿Abandonar el examen en curso?')) return;
+  stopExam();
+  finishExam(false);
+}
+
+function updateExamTimer(){
+  const m = Math.floor(EXAM.remaining/60);
+  const s = EXAM.remaining % 60;
+  const el = document.getElementById('exam-timer');
+  el.textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  el.className = 'exam-timer' + (EXAM.remaining<=300?' danger': EXAM.remaining<=600?' warn':'');
+  // progress bar
+  const done = EXAM.results.length;
+  document.getElementById('exam-q-count').textContent = done;
+  document.getElementById('exam-prog-fill').style.width = (done/EXAM.questions*100)+'%';
+}
+
+function finishExam(timeout){
+  stopExam();
+  const elapsed = Math.floor((Date.now()-EXAM.startTime)/1000);
+  const em = Math.floor(elapsed/60), es = elapsed%60;
+  const total = EXAM.results.length;
+  const correct = EXAM.results.filter(r=>r.correct).length;
+  const pct = total>0 ? Math.round(correct/total*100) : 0;
+  const pass = pct >= 75;
+
+  // Pantalla resultados
+  document.getElementById('sec-card').style.display='none';
+  document.getElementById('exam-bar').style.display='none';
+  document.getElementById('results-screen').classList.add('show');
+  document.getElementById('results-verdict').textContent = pass ? '✓ PASS' : '✗ FAIL';
+  document.getElementById('results-verdict').className = 'results-verdict '+(pass?'pass':'fail');
+  document.getElementById('results-score').textContent = pct+'%';
+  document.getElementById('r-total').textContent = total;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-wrong').textContent = total-correct;
+  document.getElementById('r-time').textContent = String(em).padStart(2,'0')+':'+String(es).padStart(2,'0');
+
+  // Desglose categorías
+  const rows = document.getElementById('cat-breakdown-rows');
+  rows.innerHTML='';
+  const cats = Object.entries(EXAM.catStats).sort((a,b)=>(b[1].correct/b[1].total)-(a[1].correct/a[1].total));
+  cats.forEach(([cat,st])=>{
+    const p = Math.round(st.correct/st.total*100);
+    const color = p>=80?'var(--green)':p>=60?'var(--yellow)':'var(--red)';
+    rows.innerHTML+=`<div class="cat-row">
+      <div class="cat-row-name">${cat}</div>
+      <div class="cat-row-bar-wrap"><div class="cat-row-bar" style="width:${p}%;background:${color}"></div></div>
+      <div class="cat-row-pct" style="color:${color}">${p}%</div>
+      <div class="cat-row-count">${st.correct}/${st.total}</div>
+    </div>`;
+  });
+
+  // Áreas de mejora
+  const weak = cats.filter(([,st])=> st.correct/st.total < 0.6);
+  if(weak.length>0){
+    document.getElementById('weakness-box').style.display='block';
+    document.getElementById('weakness-list').innerHTML = weak.map(([cat,st])=>{
+      const p=Math.round(st.correct/st.total*100);
+      return `<div class="weakness-item">⚠ ${cat} — ${p}% (${st.correct}/${st.total}) · Necesita refuerzo</div>`;
+    }).join('');
+  } else {
+    document.getElementById('weakness-box').style.display='none';
+  }
+}
+
+function restartExam(){
+  startExam();
+}
 
 function secDiff(d){
   secSt.diff=d;
   ['recruit','analyst','expert'].forEach(x=>document.getElementById('sd-'+x[0]).classList.toggle('active',x===d));
+  SEC_QUEUE.items=[];
+  secFillQueue();
   secLoad();
 }
 
 async function secLoad(){
   secSt.ans=false;
-  document.getElementById('sec-load').classList.add('show');
-  document.getElementById('sec-card').style.display='none';
   document.getElementById('s-next').disabled=true;
+  document.getElementById('results-screen').classList.remove('show');
 
-  const msgs=[
-    'QUERYING OLLAMA...',
-    'GENERATING QUESTION...',
-    'AI THINKING...',
-    'BUILDING SCENARIO...'
-  ];
-  document.getElementById('sec-load-msg').textContent=msgs[Math.floor(Math.random()*msgs.length)];
+  // En modo examen, mostrar loading si cola vacía
+  if(SEC_QUEUE.items.length===0){
+    document.getElementById('sec-load').classList.add('show');
+    document.getElementById('sec-card').style.display='none';
+    // Esperar hasta que haya algo
+    await new Promise(res=>{
+      const check=setInterval(()=>{
+        if(SEC_QUEUE.items.length>0||!EXAM.active&&SEC_BANK.length>0){
+          clearInterval(check); res();
+        }
+      },200);
+      setTimeout(()=>{clearInterval(check);res();},8000);
+    });
+  }
 
-  const prompt=`Eres instructor de CompTIA Security+ para un SOC analyst junior en España.
-Genera UNA pregunta de opción múltiple sobre ciberseguridad.
-Dificultad: ${secDiffDesc[secSt.diff]}
-Temas: Threats/Attacks/Vulnerabilities, Architecture/Design, Implementation, Operations/IR, Governance/Risk/Compliance, Criptografía, Redes, Malware, Forense, Frameworks (MITRE, NIST, ISO).
-
-IMPORTANTE: Responde ÚNICAMENTE con JSON válido, sin texto adicional, sin markdown:
-{"question":"pregunta aquí","options":["A) opción1","B) opción2","C) opción3","D) opción4"],"correct":0,"explanation":"explicación técnica de 2-3 frases en español","category":"CRYPTOGRAPHY|THREATS|NETWORK|IAM|GOVERNANCE|IR|COMPLIANCE|FRAMEWORKS|WEB SECURITY|FUNDAMENTALS","difficulty":"EASY|MEDIUM|HARD"}
-
-Todo en español. Distractores técnicamente plausibles. No repitas preguntas anteriores.`;
-
-  const{data,fromAI}=await callOllama(prompt,secFallback);
-  secRender(data,fromAI);
+  const {data,fromAI} = secDequeue();
+  secRender(data, fromAI);
+  secFillQueue(); // seguir rellenando en background
 }
 
 function secRender(q,fromAI){
@@ -579,33 +1034,83 @@ function secRender(q,fromAI){
   badge.textContent=fromAI?'🤖 OLLAMA':'📦 LOCAL';
   badge.className=fromAI?'ai-badge':'fallback-badge';
 
+  // Guardar pregunta actual para tracking de examen
+  let _currentQ = q;
+
   const oel=document.getElementById('s-opts');oel.innerHTML='';
   ['A','B','C','D'].forEach((k,i)=>{
     if(!q.options[i])return;
     const b=document.createElement('button');b.className='opt';
     b.innerHTML=`<span class="opt-key">${k})</span><span>${q.options[i].replace(/^[A-D]\)\s*/,'')}</span><span class="opt-badge"></span>`;
-    b.onclick=()=>{
-      if(secSt.ans)return;secSt.ans=true;
-      const ok=i===q.correct;
-      if(ok){secSt.correct++;secSt.str++;flash(true);}else{secSt.str=0;flash(false);}
-      secSt.total++;
-      document.querySelectorAll('#s-opts .opt').forEach((o,j)=>{
-        o.classList.add('disabled');
-        if(j===q.correct){o.classList.add('correct');o.querySelector('.opt-badge').textContent='✓';}
-        else if(j===i&&!ok){o.classList.add('wrong');o.querySelector('.opt-badge').textContent='✗';}
-      });
-      document.getElementById('s-expl').classList.add('show');
-      document.getElementById('s-next').disabled=false;
-      document.getElementById('s-tot').textContent=secSt.total;
-      document.getElementById('s-cor').textContent=secSt.correct;
-      document.getElementById('s-err').textContent=secSt.total-secSt.correct;
-      streak('s',secSt.str);
-    };
+    b.onclick=()=>handleAnswer(i, q);
     oel.appendChild(b);
   });
+  window._currentQ = q; // para shortcuts de teclado
 }
 
-function secNext(){if(!secSt.ans)return;secLoad();}
+function handleAnswer(i, q){
+  if(secSt.ans)return;
+  secSt.ans=true;
+  const ok=i===q.correct;
+  if(ok){secSt.correct++;secSt.str++;flash(true);}else{secSt.str=0;flash(false);}
+  secSt.total++;
+
+  // Tracking examen
+  if(EXAM.active){
+    const cat = q.category||'SECURITY';
+    if(!EXAM.catStats[cat]) EXAM.catStats[cat]={total:0,correct:0};
+    EXAM.catStats[cat].total++;
+    if(ok) EXAM.catStats[cat].correct++;
+    EXAM.results.push({cat, correct:ok, diff:q.difficulty});
+    updateExamTimer();
+  }
+
+  document.querySelectorAll('#s-opts .opt').forEach((o,j)=>{
+    o.classList.add('disabled');
+    if(j===q.correct){o.classList.add('correct');o.querySelector('.opt-badge').textContent='✓';}
+    else if(j===i&&!ok){o.classList.add('wrong');o.querySelector('.opt-badge').textContent='✗';}
+  });
+
+  // En modo examen no mostrar explicación — solo siguiente
+  if(EXAM.active){
+    // pequeño delay y auto-avance opcional
+  } else {
+    document.getElementById('s-expl').classList.add('show');
+  }
+  document.getElementById('s-next').disabled=false;
+  document.getElementById('s-tot').textContent=secSt.total;
+  document.getElementById('s-cor').textContent=secSt.correct;
+  document.getElementById('s-err').textContent=secSt.total-secSt.correct;
+  streak('s',secSt.str);
+}
+
+function secNext(){
+  if(!secSt.ans)return;
+  // Fin de examen si completadas las 20
+  if(EXAM.active && EXAM.results.length >= EXAM.questions){
+    finishExam(false);
+    return;
+  }
+  secLoad();
+}
+
+// ── KEYBOARD SHORTCUTS ──
+document.addEventListener('keydown', e=>{
+  const panel = document.getElementById('panel-security');
+  if(!panel.classList.contains('active')) return;
+  // Si hay input enfocado, no interferir
+  if(document.activeElement.tagName==='INPUT'||document.activeElement.tagName==='TEXTAREA') return;
+
+  const keyMap = {'a':0,'b':1,'c':2,'d':3,'A':0,'B':1,'C':2,'D':3};
+  if(keyMap[e.key]!==undefined && !secSt.ans){
+    const opts = document.querySelectorAll('#s-opts .opt:not(.disabled)');
+    if(opts[keyMap[e.key]]) opts[keyMap[e.key]].click();
+  }
+  if((e.key==='Enter'||e.key===' ') && secSt.ans){
+    e.preventDefault();
+    secNext();
+  }
+});
 
 /* ═══════════════════════════════════════════════════════
    LINUX MODULE — SINGLE TERMINAL + MISSIONS
@@ -1087,7 +1592,7 @@ function topoNext(){
 }
 
 /* NETQ — OLLAMA */
-const NQ={total:0,idx:0,ans:false};
+const NQ={total:0,idx:0,ans:false,history:[]};
 const netqDiffDesc={
   recruit:'EASY: conceptos básicos de redes — modelo OSI, TCP/IP, protocolos conocidos, tipos de red, dispositivos básicos.',
   analyst:'MEDIUM: escenarios reales — VLANs, routing, ACLs, análisis de tráfico, OSPF, BGP básico, subnetting aplicado.',
@@ -1104,15 +1609,18 @@ async function netqLoad(){
   document.getElementById('netq-card').style.display='none';
   document.getElementById('nq-next').disabled=true;
 
+  const recentNetTopics = NQ.history.slice(-8).join(', ');
+  const netHistoryNote = recentNetTopics ? `\nTemas ya vistos (NO repitas): ${recentNetTopics}` : '';
+
   const prompt=`Eres profesor de redes y networking para un SOC analyst junior en España.
-Genera UNA pregunta de opción múltiple DIFERENTE sobre redes y protocolos.
+Genera UNA pregunta de opción múltiple sobre redes y protocolos.
 Dificultad: ${netqDiffDesc[netSt.diff]}
-Temas: OSI, TCP/IP, protocolos, routing, switching, VLANs, firewalls, QoS, subnetting, diagnóstico de red, seguridad de red.
+Temas: OSI, TCP/IP, protocolos, routing, switching, VLANs, firewalls, QoS, subnetting, diagnóstico de red, seguridad de red.${netHistoryNote}
 
 IMPORTANTE: Responde ÚNICAMENTE con JSON válido, sin texto adicional:
 {"question":"...","options":["A) ...","B) ...","C) ...","D) ..."],"correct":0,"explanation":"2-3 frases técnicas en español","category":"OSI MODEL|PROTOCOLS|ROUTING|SWITCHING|SECURITY|VLAN|QoS|ARCHITECTURE","difficulty":"EASY|MEDIUM|HARD"}
 
-Todo en español. Distractores plausibles. Varía el tema.`;
+Todo en español. Distractores plausibles. Elige un tema DIFERENTE a los ya vistos.`;
 
   const{data,fromAI}=await callOllama(prompt,netqFallback);
   netqRender(data,fromAI);
@@ -1120,6 +1628,7 @@ Todo en español. Distractores plausibles. Varía el tema.`;
 
 function netqRender(q,fromAI){
   NQ.idx++;
+  if(q.question) NQ.history.push(q.question.substring(0,60));
   document.getElementById('netq-load').classList.remove('show');
   document.getElementById('netq-card').style.display='block';
   document.getElementById('nq-num').textContent='#'+String(NQ.idx).padStart(3,'0');
@@ -1166,7 +1675,9 @@ function netqNext(){if(!NQ.ans)return;netqLoad();}
 /* ═══════════════════════════════════════════════════════
    INIT
    ═══════════════════════════════════════════════════════ */
-checkOllama();
+checkOllama().then(ollamaOnline => {
+  if(ollamaOnline) secFillQueue(); // pre-llenar cola en background
+});
 snNew();
 portsNew();
 secLoad();
